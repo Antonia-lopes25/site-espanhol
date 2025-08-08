@@ -126,6 +126,142 @@
             Haz clic en el ícono de chat en la esquina inferior derecha para iniciar una conversación con nuestro equipo.
         </p>
         
+        <div class="chat-indicator">
+            <span class="pulse"></span>
+            Chat en línea disponible
+        </div>
+    </div>
+
+    <!-- Script del Beacon de Soporte -->
+    <script
+       <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Soporte - Droplatam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .chat-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #4a90e2;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .pulse {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Droplatam</div>
+        
+        <h1>¡Bienvenido al Test de Soporte!</h1>
+        
+        <p>
+            Estamos probando nuestro nuevo sistema de soporte por chat. 
+            Haz clic en el ícono de chat en la esquina inferior derecha para iniciar una conversación con nuestro equipo.
+        </p>
+        
         <div class="info-box">
             <p>
                 <strong>Horario de atención:</strong> 24/7<br>
@@ -146,4 +282,7 @@
         widgetId='8c3510cd-fbe2-40d3-9cc8-1a31325b8933'>
     </script>
 </body>
+</html>
+</body>
+
 </html>
