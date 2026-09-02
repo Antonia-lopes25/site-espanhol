@@ -1,267 +1,617 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Site Simples com Chat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background-color: #f4f4f4;
-      text-align: center;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DropLatam — Dropshipping para Latinoamérica</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --purple-deep: #3D2568;
+    --purple-mid: #5D3E94;
+    --purple-soft: #9B82C9;
+    --cream: #F6F3EE;
+    --ink: #221833;
+    --gold: #DDA23C;
+    --gold-dark: #B87F26;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Work Sans', sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.55;
+  }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 600; line-height: 1.1; }
+
+  a { color: inherit; text-decoration: none; }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: 1px solid rgba(34,24,51,0.08);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--purple-deep);
+  }
+  .logo span { color: var(--gold-dark); }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .nav-links a {
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .nav-links a:hover { border-color: var(--gold); }
+  .nav-cta {
+    background: var(--purple-deep);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 780px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--purple-deep);
     }
-    h1 {
-      color: #333;
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--cream);
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(34,24,51,0.08);
+      gap: 16px;
     }
-    p {
-      color: #666;
-    }
-  </style>
+    .nav-cta.open { display: block; margin: 0 24px 20px; text-align: center; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 90px 0 70px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    color: var(--gold-dark);
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 5vw, 58px);
+    color: var(--purple-deep);
+    max-width: 12ch;
+  }
+  .hero p.lead {
+    margin-top: 22px;
+    font-size: 18px;
+    max-width: 46ch;
+    color: #453a5c;
+  }
+  .hero-actions { margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    border: 1.5px solid var(--purple-deep);
+    color: var(--purple-deep);
+    background: transparent;
+    cursor: pointer;
+  }
+  .hero-stat {
+    background: var(--purple-deep);
+    color: #fff;
+    border-radius: 8px;
+    padding: 36px 32px;
+  }
+  .hero-stat .num {
+    font-family: 'Fraunces', serif;
+    font-size: 54px;
+    color: var(--gold);
+  }
+  .hero-stat .cap { font-size: 15px; color: #D9CEEC; margin-top: 4px; }
+  .hero-stat hr { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 22px 0; }
+  .hero-stat ul { list-style: none; font-size: 14px; color: #E7E0F3; }
+  .hero-stat li { padding: 6px 0; display: flex; gap: 10px; }
+  .hero-stat li::before { content: "—"; color: var(--gold); }
+
+  @media (max-width: 780px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+  }
+
+  /* ---------- Sections generic ---------- */
+  section { padding: 80px 0; }
+  .section-head { max-width: 56ch; margin-bottom: 48px; }
+  .section-head h2 { font-size: clamp(28px, 3.5vw, 38px); color: var(--purple-deep); }
+  .section-head p { margin-top: 14px; color: #453a5c; font-size: 16px; }
+
+  /* ---------- Qué hacemos ---------- */
+  .services { background: #fff; }
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(34,24,51,0.1);
+    border: 1px solid rgba(34,24,51,0.1);
+  }
+  .service-card {
+    background: #fff;
+    padding: 32px 28px;
+  }
+  .service-card h3 { font-size: 20px; color: var(--purple-deep); margin-bottom: 10px; }
+  .service-card p { font-size: 15px; color: #453a5c; }
+  @media (max-width: 780px) {
+    .service-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Cómo funciona ---------- */
+  .steps { counter-reset: step; }
+  .step-row {
+    display: flex;
+    gap: 28px;
+    padding: 26px 0;
+    border-top: 1px solid rgba(34,24,51,0.12);
+  }
+  .step-row:last-child { border-bottom: 1px solid rgba(34,24,51,0.12); }
+  .step-num {
+    counter-increment: step;
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    color: var(--gold-dark);
+    min-width: 46px;
+  }
+  .step-num::before { content: counter(step, decimal-leading-zero); }
+  .step-body h3 { font-size: 19px; color: var(--purple-deep); margin-bottom: 6px; }
+  .step-body p { font-size: 15px; color: #453a5c; max-width: 62ch; }
+
+  /* ---------- Testimonios ---------- */
+  .testimonials { background: var(--purple-deep); color: #fff; }
+  .testimonials .section-head h2 { color: #fff; }
+  .testimonials .section-head p { color: #D9CEEC; }
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .quote-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 6px;
+    padding: 26px;
+  }
+  .quote-card p.q { font-size: 15px; color: #EDE7F7; }
+  .quote-card .who { margin-top: 18px; font-size: 14px; color: var(--gold); font-weight: 600; }
+  @media (max-width: 780px) {
+    .quote-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Contacto ---------- */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .contact-info h2 { font-size: clamp(28px, 3.5vw, 38px); color: var(--purple-deep); }
+  .contact-info p { margin-top: 14px; color: #453a5c; font-size: 16px; max-width: 42ch; }
+  .contact-info ul { margin-top: 26px; list-style: none; font-size: 15px; }
+  .contact-info li { padding: 8px 0; color: var(--ink); }
+  form.contact-form { display: flex; flex-direction: column; gap: 14px; }
+  form.contact-form input, form.contact-form textarea {
+    padding: 12px 14px;
+    border: 1px solid rgba(34,24,51,0.25);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    background: #fff;
+  }
+  form.contact-form textarea { min-height: 110px; resize: vertical; }
+  form.contact-form button {
+    align-self: flex-start;
+    margin-top: 6px;
+  }
+  @media (max-width: 780px) {
+    .contact-wrap { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--ink);
+    color: #C9BFDB;
+    padding: 36px 0;
+    font-size: 14px;
+  }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  /* ---------- Widget de chat customizado ---------- */
+  #fc-custom-form {
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    width: 85%;
+    max-width: 400px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    font-family: 'Work Sans', sans-serif;
+    z-index: 2147483647;
+    overflow: hidden;
+    display: none;
+  }
+  #fc-custom-form .fc-header { width: 100%; height: 40px; background: var(--purple-deep); position: relative; }
+  #fc-close-form {
+    position: absolute; top: 3px; right: 15px; background: transparent; border: none;
+    color: white; font-size: 20px; cursor: pointer;
+  }
+  #fc-custom-form img { max-width: 55%; height: auto; margin: 20px auto 0; }
+  #fc-custom-form .fc-body { padding: 20px; }
+  #fc-custom-form .fc-intro { font-size: 15px; color: var(--ink); margin: 0 0 22px; text-align: center; }
+  #fc-custom-form label { display: block; font-size: 13px; color: #453a5c; margin-bottom: 6px; font-weight: 600; }
+  #fc-custom-form input {
+    width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 4px;
+    font-size: 14px; box-sizing: border-box; background-color: #f9fafb; margin-bottom: 16px;
+  }
+  #fc-email-wrap { position: relative; }
+  #tooltip-email {
+    display: none; position: absolute; top: 100%; left: 0; margin-top: 6px;
+    background-color: #f7f2da; color: #111827; padding: 8px 12px; border-radius: 6px;
+    font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 10; width: 260px;
+  }
+  #fc-submit {
+    width: 100%; padding: 12px; background: var(--gold); color: var(--ink); border: none;
+    border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  #fc-error-msg { color: #B3261E; margin-top: 10px; font-size: 13px; }
+  #fc-custom-launcher {
+    position: fixed; bottom: 20px; right: 20px; background: var(--purple-deep); color: white;
+    border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 14px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.25); z-index: 2147483646;
+  }
+  @media (max-width: 768px) {
+    #fc-custom-launcher { bottom: 15px; right: 15px; }
+    #fc-custom-form { width: 85%; max-height: 80vh; right: 50%; transform: translateX(50%); bottom: 10%; }
+  }
+</style>
 </head>
 <body>
-  <h1>Bem-vindo ao nosso site!</h1>
-  <p>Este é um site simples com o chat inserido.</p>
 
-  <!-- Script do chat -->
-<script
-src='//fw-cdn.com/16739101/7345552.js'
-chat='true'>
-</script>
- <script src='//fw-cdn.com/12580031/4973524.js' chat="true"></script>
+<header>
+  <div class="wrap nav">
+    <div class="logo">Drop<span>Latam</span></div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Qué hacemos</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="#contacto" class="nav-cta" id="navCta">Hablar con un asesor</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap" style="display:contents;">
+    <div>
+      <div class="hero-eyebrow">Dropshipping para emprendedores latinoamericanos</div>
+      <h1>Vende sin inventario, con proveedores verificados</h1>
+      <p class="lead">Conectamos a emprendedores de Latinoamérica con proveedores confiables, herramientas de gestión y soporte en español para lanzar su tienda online sin arriesgar capital en stock.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Quiero empezar</button>
+        <button class="btn-secondary" onclick="document.getElementById('como-funciona').scrollIntoView({behavior:'smooth'})">Ver cómo funciona</button>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">1,200+</div>
+      <div class="cap">emprendedores activos en la red</div>
+      <hr>
+      <ul>
+        <li>Proveedores verificados en 6 países</li>
+        <li>Soporte en español, todos los días</li>
+        <li>Sin costo de inventario inicial</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Qué hacemos</h2>
+      <p>Todo lo que necesitas para operar una tienda de dropshipping, en un solo lugar.</p>
+    </div>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3>Red de proveedores</h3>
+      <p>Catálogo curado de proveedores verificados en México, Colombia, Chile, Perú, Argentina y España, con tiempos de entrega reales.</p>
+    </div>
+    <div class="service-card">
+      <h3>Gestión de pedidos</h3>
+      <p>Panel donde sincronizas tu tienda, automatizas pedidos y das seguimiento a envíos sin hojas de cálculo.</p>
+    </div>
+    <div class="service-card">
+      <h3>Mentoría y soporte</h3>
+      <p>Acompañamiento de asesores especializados en dropshipping para Latinoamérica, disponibles por chat.</p>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cómo funciona</h2>
+      <p>De la idea a tu primera venta, en cuatro pasos.</p>
+    </div>
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Creas tu cuenta</h3>
+          <p>Te registras y nos cuentas qué tipo de productos quieres vender.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Eliges proveedores</h3>
+          <p>Accedes al catálogo verificado y seleccionas los productos para tu tienda.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Conectas tu tienda</h3>
+          <p>Sincronizamos tu tienda online con nuestro panel de pedidos automático.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Vendes y creces</h3>
+          <p>Recibes pedidos, nosotros coordinamos el envío con el proveedor, y un asesor te acompaña en el camino.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonios">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Lo que dicen nuestros emprendedores</h2>
+      <p>Historias reales de quienes ya vendieron su primer producto con DropLatam.</p>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <p class="q">"Empecé sin saber nada de logística. En dos meses ya tenía mi primera tienda vendiendo todos los días."</p>
+        <div class="who">Marcela R. — Bogotá, Colombia</div>
+      </div>
+      <div class="quote-card">
+        <p class="q">"Lo que más valoro es el soporte por chat. Siempre hay alguien que responde en español, rápido."</p>
+        <div class="who">Julián T. — Ciudad de México</div>
+      </div>
+      <div class="quote-card">
+        <p class="q">"Los proveedores verificados me dieron confianza para lanzar sin miedo a que me quedaran mal."</p>
+        <div class="who">Camila F. — Santiago de Chile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap contact-wrap">
+    <div class="contact-info">
+      <h2>Hablemos de tu tienda</h2>
+      <p>Escríbenos y un asesor te contacta para resolver tus dudas sobre proveedores, envíos o cómo empezar.</p>
+      <ul>
+        <li>contacto@droplatam.com</li>
+        <li>Soporte por chat, todos los días</li>
+      </ul>
+    </div>
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Gracias! Te contactaremos pronto.');">
+      <input type="text" placeholder="Tu nombre" required>
+      <input type="email" placeholder="Tu correo" required>
+      <textarea placeholder="Cuéntanos qué quieres vender"></textarea>
+      <button type="submit" class="btn-primary">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 DropLatam. Todos los derechos reservados.</div>
+    <div>Hecho para emprendedores de Latinoamérica</div>
+  </div>
+</footer>
+
+<!-- Widget de chat customizado -->
+<div id="fc-custom-form">
+  <div class="fc-header">
+    <button id="fc-close-form" aria-label="Fechar">×</button>
+  </div>
+  <img
+    src="https://cdn.shopify.com/s/files/1/0275/5385/7588/files/Logo_DropLatam_horizontal_dark.png?v=1715625177"
+    alt="Logo DropLatam"
+  >
+  <div class="fc-body">
+    <p class="fc-intro">Ingresa tus datos a continuación <br> antes de iniciar la asistencia.</p>
+    <div>
+      <label for="fc-name">Nombre</label>
+      <input id="fc-name" type="text" placeholder="Informe su nombre" autocomplete="name">
+    </div>
+    <div id="fc-email-wrap">
+      <label for="fc-email">Correo</label>
+      <input id="fc-email" type="email" placeholder="tucorreo@ejemplo.com" autocomplete="email">
+      <div id="tooltip-email">
+        <strong>Atención:</strong> la respuesta puede enviarse por correo si nuestro equipo no está en línea.
+      </div>
+    </div>
+    <button id="fc-submit">Iniciar Chat</button>
+    <p id="fc-error-msg" style="display:none;"></p>
+  </div>
+</div>
+<button id="fc-custom-launcher" style="display:none;">Chat</button>
+
+<!-- Script do chat: mantenha SÓ UM widget ID -->
+<script src='//fw-cdn.com/16739101/7345552.js' chat='true'></script>
 
 <script>
+(function () {
+  'use strict';
+
+  // Menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const navCta = document.getElementById('navCta');
+  navToggle.addEventListener('click', function () {
+    navLinks.classList.toggle('open');
+    navCta.classList.toggle('open');
+  });
+
+  // Widget de chat
+  const MAX_INIT_ATTEMPTS = 20;
+  let initAttempts = 0;
+
   function initFreshchat() {
     if (window.fcWidget) {
-      window.fcWidget.on("widget:loaded", function () {
-        // Desativa o envio de arquivos
-        window.fcWidget.setConfig({
-          config: {
-            fileUpload: false
-          }
-        });
-
-        // Oculta o widget inicialmente
-        window.fcWidget.hide();
-
-        // Cria o formulário personalizado
-        const formHtml = `
-          <div id="fc-custom-form" style="position: fixed; bottom: 40px; right: 20px; width: 85%; max-width: 400px; height: auto; max-height: 90vh; background: white; border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; z-index: 2147483647; overflow: hidden;">
-            <div style="width:100%; height: 40px; background: #5d3e94; position: relative;">
-              <button id="fc-close-form" style="
-                position: absolute;
-                top: 3px;
-                right: 15px;
-                background: transparent;
-                border: none;
-                color: white;
-                font-size: 20px;
-                font-weight: 400;
-                cursor: pointer;
-              ">x</button>
-            </div>
-            <img 
-              src="https://cdn.shopify.com/s/files/1/0275/5385/7588/files/Logo_DropLatam_horizontal_dark.png?v=1715625177" 
-              alt="Logo DropLatam" 
-              style="max-width: 60%; height: auto; display: block; margin: 0 auto; margin-top: 20px;"
-            >
-            <div style="padding: 20px;">
-              <div style="font-size: 16px; font-weight: 400; color: #1f2937; margin-bottom: 25px; margin-top: 0px; text-align: center;">Ingresa tus datos a continuación <br> antes de iniciar la asistencia.</div>
-
-              <div style="margin-bottom: 16px;">
-                <label for="fc-name" style="display: block; font-size: 14px; color: #374151; margin-bottom: 6px;"><strong>Nombre</strong></label>
-                <input 
-                  id="fc-name" 
-                  type="text" 
-                  placeholder="Informe su nombre" 
-                  style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; box-sizing: border-box; background-color: #f9fafb;"
-                  oninput="this.value = this.value.replace(/[^a-zA-ZÀ-ú ]+/g, '')"
-                >
-              </div>
-
-              <div style="margin-bottom: 20px; position: relative;">
-                <label for="fc-email" style="display: block; font-size: 14px; color: #374151; margin-bottom: 6px;"><strong>Correo</strong></label>
-                <input 
-                  id="fc-email" 
-                  type="email" 
-                  placeholder="tucorreo@ejemplo.com" 
-                  style="width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; box-sizing: border-box; background-color: #f9fafb;"
-                  onfocus="document.getElementById('tooltip-email').style.display = 'block'"
-                  onblur="document.getElementById('tooltip-email').style.display = 'none'"
-                >
-                <div id="tooltip-email" style="
-                  display: none;
-                  position: absolute;
-                  top: 100%;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  margin-top: 6px;
-                  background-color: #f7f2da;
-                  color: #111827;
-                  padding: 8px 12px;
-                  border-radius: 6px;
-                  font-size: 13px;
-                  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                  z-index: 10;
-                  width: 300px;
-                  max-width: 300px;
-                ">
-                  <strong>Atenção!</strong> A resposta pode ser enviada por e-mail caso nossa equipe não esteja online.
-                  Então garanta que o e-mail informado está correto e que você tenha acesso a ele!
-                </div>
-              </div>
-
-              <button id="fc-submit" style="width: 100%; padding: 12px; background: #5d3e94; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;">
-                Iniciar Chat
-              </button>
-            </div>
-          </div>
-        `;
-
-        const formContainer = document.createElement('div');
-        formContainer.innerHTML = formHtml;
-        formContainer.style.zIndex = "2147483647"; // Máximo z-index possível
-        document.body.appendChild(formContainer);
-
-        const launcherButton = document.createElement('button');
-        launcherButton.id = 'fc-custom-launcher';
-        launcherButton.innerHTML = 'Chat';
-        launcherButton.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #5d3e94; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 2147483646;';
-        
-        // Adiciona media query para ajustar tamanho em dispositivos mobile
-        const mediaQuery = window.matchMedia('(max-width: 768px)');
-        function handleMobileChanges(e) {
-          if (e.matches) {
-            launcherButton.style.bottom = '15px';
-            launcherButton.style.right = '15px';
-          }
-        }
-        mediaQuery.addListener(handleMobileChanges);
-        handleMobileChanges(mediaQuery);
-        document.body.appendChild(launcherButton);
-
-        document.getElementById('fc-custom-form').style.display = 'none';
-        
-        // Função para ajustar o tamanho do formulário em dispositivos mobile
-        function adjustFormSize() {
-          const form = document.getElementById('fc-custom-form');
-          if (!form) return;
-          
-          if (window.innerWidth <= 768) {
-            form.style.width = '85%';
-            form.style.maxHeight = '80vh';
-            form.style.right = '50%';
-            form.style.transform = 'translateX(50%)';
-            form.style.bottom = '10%';
-          } else {
-            form.style.width = '400px';
-            form.style.maxHeight = '90vh';
-            form.style.right = '20px';
-            form.style.transform = 'none';
-            form.style.bottom = '40px';
-          }
-        }
-        
-        window.addEventListener('resize', adjustFormSize);
-        adjustFormSize();
-
-        document.getElementById('fc-custom-launcher').addEventListener('click', function () {
-          document.getElementById('fc-custom-form').style.display = 'block';
-          this.style.display = 'none';
-        });
-        
-        document.getElementById('fc-close-form').addEventListener('click', function () {
-          document.getElementById('fc-custom-form').style.display = 'none';
-          document.getElementById('fc-custom-launcher').style.display = 'block';
-        });
-
-        document.getElementById('fc-submit').addEventListener('click', function () {
-          const nome = document.getElementById('fc-name').value.trim();
-          const email = document.getElementById('fc-email').value.trim();
-
-          if (nome && email) {
-            window.fcWidget.user.setFirstName(nome);
-            window.fcWidget.user.setEmail(email);
-
-            document.getElementById('fc-custom-form').style.display = 'none';
-            document.getElementById('fc-custom-launcher').style.display = 'none';
-
-            // Adiciona um alto z-index ao widget do Freshchat quando mostrado
-            const fcContainer = document.querySelector('.fc-widget-small');
-            if (fcContainer) {
-              fcContainer.style.zIndex = "2147483647";
-            }
-
-            window.fcWidget.show();
-            window.fcWidget.open();
-          } else {
-            let errorMsg = document.getElementById('fc-error-msg');
-            if (!errorMsg) {
-              errorMsg = document.createElement('p');
-              errorMsg.id = 'fc-error-msg';
-              errorMsg.style.cssText = 'color: red; margin-top: 10px; margin-bottom: 0;';
-              document.getElementById('fc-submit').insertAdjacentElement('afterend', errorMsg);
-            }
-            errorMsg.textContent = 'Por favor, preencha todos os campos.';
-          }
-        });
-
-        // Adiciona um observador para garantir que o widget do Freshchat tenha alto z-index quando mostrado
-        const observer = new MutationObserver(function(mutations) {
-          const fcContainer = document.querySelector('.fc-widget-small');
-          if (fcContainer) {
-            fcContainer.style.zIndex = "2147483647";
-          }
-        });
-        
-        observer.observe(document.body, { childList: true, subtree: true });
-      });
-    } else {
-      setTimeout(initFreshchat, 500);
+      setupCustomWidget();
+      return;
     }
+    initAttempts++;
+    if (initAttempts >= MAX_INIT_ATTEMPTS) {
+      console.warn('Freshchat não carregou a tempo — abortando inicialização do widget customizado.');
+      return;
+    }
+    setTimeout(initFreshchat, 500);
   }
 
-  if (document.readyState === 'complete') {
-    initFreshchat();
-  } else {
-    window.addEventListener('load', initFreshchat);
+  function setupCustomWidget() {
+    window.fcWidget.on('widget:loaded', function () {
+      window.fcWidget.setConfig({ config: { fileUpload: false } });
+      window.fcWidget.hide();
+
+      const form = document.getElementById('fc-custom-form');
+      const launcher = document.getElementById('fc-custom-launcher');
+      const nameInput = document.getElementById('fc-name');
+      const emailInput = document.getElementById('fc-email');
+      const emailTooltip = document.getElementById('tooltip-email');
+      const errorMsg = document.getElementById('fc-error-msg');
+      const submitBtn = document.getElementById('fc-submit');
+
+      launcher.style.display = 'block';
+
+      nameInput.addEventListener('input', function () {
+        this.value = this.value.replace(/[^a-zA-ZÀ-ú ]+/g, '');
+      });
+
+      emailInput.addEventListener('focus', () => { emailTooltip.style.display = 'block'; });
+      emailInput.addEventListener('blur', () => { emailTooltip.style.display = 'none'; });
+
+      launcher.addEventListener('click', function () {
+        form.style.display = 'block';
+        launcher.style.display = 'none';
+      });
+
+      document.getElementById('fc-close-form').addEventListener('click', function () {
+        form.style.display = 'none';
+        launcher.style.display = 'block';
+      });
+
+      submitBtn.addEventListener('click', function () {
+        const nome = nameInput.value.trim();
+        const email = emailInput.value.trim();
+
+        if (!nome || !email) {
+          errorMsg.textContent = 'Por favor, preencha todos os campos.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        errorMsg.style.display = 'none';
+
+        window.fcWidget.user.setFirstName(nome);
+        window.fcWidget.user.setEmail(email);
+
+        form.style.display = 'none';
+        launcher.style.display = 'none';
+
+        const fcContainer = document.querySelector('.fc-widget-small');
+        if (fcContainer) fcContainer.style.zIndex = '2147483647';
+
+        window.fcWidget.show();
+        window.fcWidget.open();
+      });
+
+      const observer = new MutationObserver(function () {
+        const fcContainer = document.querySelector('.fc-widget-small');
+        if (fcContainer) {
+          fcContainer.style.zIndex = '2147483647';
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
   }
-</script> 
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFreshchat);
+  } else {
+    initFreshchat();
+  }
+})();
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
